@@ -1,0 +1,1 @@
+docker run --rm -i  -p 80:80 php-hello-world

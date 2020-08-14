@@ -1,0 +1,1 @@
+docker run --rm -it c-hello-world
