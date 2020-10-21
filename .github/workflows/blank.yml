@@ -25,4 +25,6 @@ jobs:
           context: .
           file: ./go-hello-world/Dockerfile
           push: true
+          tags: |
+            jasonrandrews/go-hello-world:latest
   
