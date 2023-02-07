@@ -30,7 +30,7 @@ There is a README file for each example.
 
 ## Using AWS EC2 instances with Graviton processors
 
-AWS is an easy way to get started on an Arm machine. The examples run on any size instance, even the smallest a1.medium EC2 instance.
+AWS is an easy way to get started on an Arm machine. The examples run on any size instance, even the smallest t4g.small EC2 instance.
 
 To use the examples on AWS Graviton processors running Ubuntu Linux there is a simple ec2-setup.sh script which can be run to install Docker and setup ssh access.
 
