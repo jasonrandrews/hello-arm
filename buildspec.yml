@@ -4,23 +4,25 @@ env:
   secrets-manager:
      DOCKERHUB_PASS: "dockerhub:password"
      DOCKERHUB_USERNAME: "dockerhub:username"
+     AWS_ECR_REGION: "aws_ecr:region"
+     AWS_ECR_URI: "aws_ecr:uri"
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR and Docker Hub 
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/z9p7l6s8
+      - aws ecr-public get-login-password --region $AWS_ECR_REGION | docker login --username AWS --password-stdin $AWS_ECR_URI
       - docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASS
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image          
       - docker build -t c-hello-world ./c-hello-world
-      - docker tag c-hello-world:latest public.ecr.aws/z9p7l6s8/c-hello-world:latest
-      - docker tag c-hello-world:latest jasonrandrews/c-hello-world
+      - docker tag c-hello-world:latest $AWS_ECR_URI/c-hello-world:latest
+      - docker tag c-hello-world:latest $DOCKERHUB_USERNAME/c-hello-world
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image to ECR and Docker Hub
-      - docker push public.ecr.aws/z9p7l6s8/c-hello-world:latest
-      - docker push jasonrandrews/c-hello-world:latest
+      - docker push $AWS_ECR_URI/c-hello-world:latest
+      - docker push $DOCKERHUB_USERNAME/c-hello-world:latest
 
